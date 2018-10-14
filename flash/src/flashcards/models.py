@@ -11,6 +11,7 @@ from accounts.models import User
 
 import uuid
 
+
 class Deck(models.Model):
     """
     Deck model
@@ -19,25 +20,26 @@ class Deck(models.Model):
     Foreign Key: Institition from courses.models
     """
     title = models.CharField(
-                            max_length=64,
-                            null=False,
-                            blank=False)
+        max_length=64,
+        null=False,
+        blank=False)
     parent_user = models.ForeignKey(
-                            User,
-                            on_delete=models.CASCADE,
-                            default=1)
+        User,
+        on_delete=models.CASCADE,
+        default=1)
     parent_course = models.ForeignKey(
-                            Course,
-                            on_delete=models.CASCADE,
-                            default=1)
+        Course,
+        on_delete=models.CASCADE,
+        default=1)
     deck_description = models.CharField(
-                            max_length=64,
-                            null=False,
-                            blank=False)
+        max_length=64,
+        null=False,
+        blank=False,
+        default='comp805deck')
     unique_id = models.UUIDField(
-                            default=uuid.uuid4,
-                            editable= False,
-                            unique=True)
+        default=uuid.uuid4,
+        editable=False,
+        unique=True)
 
     def __str__(self):
         return self.title
@@ -81,15 +83,15 @@ class Card(models.Model):
     Foreign Key: Deck from flashcards/models.py
     """
     parent_deck = models.ForeignKey(
-                            Deck,
-                            on_delete=models.CASCADE,
-                            default=1)
+        Deck,
+        on_delete=models.CASCADE,
+        default=1)
     front = models.TextField()
     back = models.TextField()
     unique_id = models.UUIDField(
-                                default=uuid.uuid4,
-                                editable= False,
-                                unique=True)
+        default=uuid.uuid4,
+        editable=False,
+        unique=True)
 
     def __str__(self):
         return self.front + ' , ' + self.back
