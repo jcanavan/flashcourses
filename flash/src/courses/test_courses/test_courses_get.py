@@ -1,5 +1,6 @@
 """
-FlashCourses- Test cases for API endpoints for get- Institution and course endpoints
+FlashCourses- Test cases for API endpoints for get- Institution and course
+endpoints
 Created By: Swechchha Tiwari  4/19/2018
 
 Relative File Path:  /flash/src/courses/test_courses/test_course_get.py
@@ -27,7 +28,8 @@ class APIgetStatusCodeInstCourse(APITestCase):
 
     def setUp(self):
         """
-        Sets up testing environment for GET method for institution_list & course_list.
+        Sets up testing environment for GET method for institution_list &
+        course_list.
         """
 
         self.get_method_endpoint_course = [
@@ -38,7 +40,8 @@ class APIgetStatusCodeInstCourse(APITestCase):
 
     def test_courses_endpoint_get_method(self):
         """
-        Crate a request to every endpoint in get_method_endpoints. Ensure returns a 200
+        Crate a request to every endpoint in get_method_endpoints. Ensure
+        returns a 200
         response status code
         """
 

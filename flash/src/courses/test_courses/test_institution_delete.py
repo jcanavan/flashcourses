@@ -17,6 +17,7 @@ from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+
 class APIdeleteStatusCodeTestsInst(APITestCase):
 
     """
@@ -28,16 +29,22 @@ class APIdeleteStatusCodeTestsInst(APITestCase):
         Sets up testing environment. Add all endpoints to be tested
         """
 
-        inst = Institution.objects.create(ipeds = '12', institution_name = 'UNH', location = 'Manchester NH' )
+        inst = Institution.objects.create(
+            ipeds='12',
+            institution_name='UNH',
+            location='Manchester NH'
+        )
 
         self.delete_method_endpoint_institution = [
-            reverse('courses:courses_api:institution_delete', kwargs = {'unique_id': Institution.objects.first().unique_id}),
+            reverse('courses:courses_api:institution_delete', kwargs={
+                    'unique_id': Institution.objects.first().unique_id}),
 
         ]
 
     def test_self_delete_method_endpointsdeck(self):
         """
-        Create a request to every endpoint in delete_method_endpoints. Ensure returns a 204
+        Create a request to every endpoint in delete_method_endpoints. Ensure
+        returns a 204
         response status code
         """
         c = Client()

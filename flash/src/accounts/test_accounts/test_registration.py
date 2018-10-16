@@ -15,6 +15,7 @@ from courses.models import Institution, Course
 from django.contrib.auth.models import User
 from rest_framework import status
 
+
 class RegisterationTestCases(TestCase):
     def setUp(self):
         """
@@ -25,7 +26,8 @@ class RegisterationTestCases(TestCase):
 
     def test_reg_endpoint_post_with_valid_data(self):
         """
-        Ensure we can create a new user and that we're returning a 201 http status code.
+        Ensure we can create a new user and that we're returning a 201 http
+        status code.
         """
 
         data = {
@@ -36,14 +38,15 @@ class RegisterationTestCases(TestCase):
             'password2': 'somepassword',
         }
 
-        response = self.client.post(self.create_url , data)
+        response = self.client.post(self.create_url, data)
 
         self.assertEqual(User.objects.count(), 1)
         self.assertEqual(response.status_code, 201)
 
     def test_reg_endpoint_post_with_invalid_data(self):
         """
-        Ensure we can cannot create a new user with inavlid data and that we're returning a 400 error code.
+        Ensure we can cannot create a new user with inavlid data and that we're
+        returning a 400 error code.
         """
 
         invalid_user_data = {
@@ -54,5 +57,7 @@ class RegisterationTestCases(TestCase):
             'password2': 'somepassword',
         }
 
-        response = self.client.post(self.create_url , invalid_user_data)
+        response = self.client.post(
+            self.create_url, invalid_user_data
+        )
         self.assertEqual(response.status_code, 400)

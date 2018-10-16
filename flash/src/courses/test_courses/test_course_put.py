@@ -17,6 +17,7 @@ from accounts.models import User
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+
 class APIputStatusCodeTestsCourse(APITestCase):
 
     """
@@ -28,7 +29,11 @@ class APIputStatusCodeTestsCourse(APITestCase):
         Sets up testing environment.
         """
 
-        course_tbl = Course.objects.create(course_title = 'test', course_id = '815', course_description = 'this is a test data')
+        course_tbl = Course.objects.create(
+            course_title='test',
+            course_id='815',
+            course_description='this is a test data'
+        )
 
     def test_course_endpoint_put_method(self):
         """
@@ -47,7 +52,11 @@ class APIputStatusCodeTestsCourse(APITestCase):
         }
 
         self.assertEqual(course_tbl.course_id, '815')
-        response = self.client.put(reverse('courses:courses_api:course_update', kwargs = {'unique_id': course_tbl.unique_id}), data)
+        response = self.client.put(reverse(
+            'courses:courses_api:course_update',
+            kwargs={'unique_id': course_tbl.unique_id}),
+            data
+        )
         course_tbl = Course.objects.first()
         self.assertEqual(course_tbl.course_id, '215')
         self.assertEqual(response.status_code, 200)

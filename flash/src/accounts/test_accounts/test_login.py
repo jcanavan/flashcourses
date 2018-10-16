@@ -13,41 +13,49 @@ from django.shortcuts import reverse
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 
+
 class LoginTestAuthentication(TestCase):
     def setUp(self):
         """
-        Creating test_user for authentication and endpoints for token_obtain_pair, token_refresh and token_verify
+        Creating test_user for authentication and endpoints for
+        token_obtain_pair, token_refresh and token_verify
         """
 
         self.endpoint_obtain_token = reverse('token_obtain_pair')
         self.endpoint_refresh_token = reverse('token_refresh')
         self.endpoint_verify_token = reverse('token_verify')
 
-        self.test_user = User.objects.create_user('test1', 'test@test.com', 'tqwe123qwe')
+        self.test_user = User.objects.create_user(
+            'test1', 'test@test.com', 'tqwe123qwe'
+        )
 
         self.credentials = {
 
             'username': 'test1',
             'password': 'tqwe123qwe',
 
-             }
+        }
 
         self.invalid_credentials = {
 
             'username': 'test_user',
             'password': 'qwe123qw',
 
-            }
+        }
 
         self.requests = Client()
 
     def test_obtain_token_success(self):
         """
-        Obtaining token if user is authenticated successfully with response status 200
+        Obtaining token if user is authenticated successfully with response
+        status 200
         """
 
         self.assertEqual(User.objects.count(), 1)
-        response = self.requests.post(self.endpoint_obtain_token, self.credentials)
+        response = self.requests.post(
+            self.endpoint_obtain_token,
+            self.credentials
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_obtain_token_failure(self):
@@ -57,7 +65,10 @@ class LoginTestAuthentication(TestCase):
 
         user = User.objects.first()
         self.assertEqual(User.objects.count(), 1)
-        response = self.requests.post(self.endpoint_obtain_token, self.invalid_credentials)
+        response = self.requests.post(
+            self.endpoint_obtain_token,
+            self.invalid_credentials
+        )
         self.assertEqual(response.status_code, 400)
 
     def test_refresh_token_success(self):
@@ -67,7 +78,10 @@ class LoginTestAuthentication(TestCase):
         refresh = RefreshToken()
 
         self.assertEqual(User.objects.count(), 1)
-        response = self.requests.post(self.endpoint_refresh_token, data = {'refresh':str(refresh)})
+        response = self.requests.post(
+            self.endpoint_refresh_token,
+            data={'refresh': str(refresh)}
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_refresh_token_failure(self):
@@ -78,7 +92,7 @@ class LoginTestAuthentication(TestCase):
         refresh = RefreshToken()
 
         self.assertEqual(User.objects.count(), 1)
-        response = self.requests.post(self.endpoint_refresh_token, data = {})
+        response = self.requests.post(self.endpoint_refresh_token, data={})
         self.assertEqual(response.status_code, 400)
 
     def test_verify_token_success(self):
@@ -89,16 +103,19 @@ class LoginTestAuthentication(TestCase):
         token = AccessToken()
 
         self.assertEqual(User.objects.count(), 1)
-        response = self.requests.post(self.endpoint_verify_token, data = {'token':str(token)})
+        response = self.requests.post(
+            self.endpoint_verify_token, data={'token': str(token)}
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_verify_token_failure(self):
         """
-        Check if token verification is not successfull then response status is 400
+        Check if token verification is not successfull then response status is
+        400
         """
 
         token = AccessToken()
 
         self.assertEqual(User.objects.count(), 1)
-        response = self.requests.post(self.endpoint_verify_token, data = {})
+        response = self.requests.post(self.endpoint_verify_token, data={})
         self.assertEqual(response.status_code, 400)

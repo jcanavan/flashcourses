@@ -17,6 +17,7 @@ from accounts.models import User
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+
 class APIStatusCodeInstCreate(APITestCase):
 
     """
@@ -28,26 +29,28 @@ class APIStatusCodeInstCreate(APITestCase):
         Sets up testing environment. Add endpoint to be tested
         """
 
-        self.post_method_endpoint_institution =[
+        self.post_method_endpoint_institution = [
             reverse('courses:courses_api:institution_create')
         ]
 
     def test_inst_endpoint_post_method_with_valid_data(self):
         """
-        Create a request to institution create endpoint in post_method_endpoint_institution. Ensure returns a 201
+        Create a request to institution create endpoint in
+        post_method_endpoint_institution. Ensure returns a 201
         response status code
         """
 
         c = Client()
 
         """
-        All the three fields in valid_data are mandatory fields for creating data
+        All the three fields in valid_data are mandatory fields for creating
+        data
         """
 
         valid_data = {
             "ipeds": "662354",
             "institution_name": "UNH",
-            "location" : "Manchester, NH"
+            "location": "Manchester, NH"
         }
 
         for endpoint in self.post_method_endpoint_institution:
@@ -56,15 +59,16 @@ class APIStatusCodeInstCreate(APITestCase):
 
     def test_inst_endpoint_post_method_with_invalid_data(self):
         """
-        Create a request to institution create endpoint in post_method_endpoint_institution. Ensure returns a 400 for invalid data
+        Create a request to institution create endpoint in
+        post_method_endpoint_institution. Ensure returns a 400 for invalid data
         response status code
         """
 
         c = Client()
         invalid_data = {
-             "ipeds": "",
-             "institution_name": "UNH",
-             "location" : "Manchester"
+            "ipeds": "",
+            "institution_name": "UNH",
+            "location": "Manchester"
 
         }
 

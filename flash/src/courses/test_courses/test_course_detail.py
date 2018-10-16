@@ -18,6 +18,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 from accounts.models import UserProfile
 
+
 class APIgetStatusCoursedetail(APITestCase):
 
     """
@@ -26,22 +27,43 @@ class APIgetStatusCoursedetail(APITestCase):
 
     def setUp(self):
         """
-        Sets up testing environment for GET method for course_detail based on unique_id.
+        Sets up testing environment for GET method for course_detail based on
+        unique_id.
         """
 
-        user = User.objects.create_user('Swechchha', 'swechchha@gmail.com', 'imppwdswe')
-        inst = Institution.objects.create(ipeds = '123654' , institution_name = 'UNH', location = 'Manchester' )
-        course_tbl = Course.objects.create(course_title = 'test', course_id = '2', course_description = 'this is a test data')
-        deck_tbl = Deck.objects.create(title = 'test title', deck_description = 'this is a test')
-        card_tbl = Card.objects.create(front = 'test', back = 'testsback')
+        user = User.objects.create_user(
+            'Swechchha', 'swechchha@gmail.com', 'imppwdswe'
+        )
+        inst = Institution.objects.create(
+            ipeds='123654',
+            institution_name='UNH',
+            location='Manchester'
+        )
+        course_tbl = Course.objects.create(
+            course_title='test',
+            course_id='2',
+            course_description='this is a test data'
+        )
+        deck_tbl = Deck.objects.create(
+            title='test title',
+            deck_description='this is a test'
+        )
+        card_tbl = Card.objects.create(
+            front='test',
+            back='testsback'
+        )
 
         self.detail_method_endpoint_course = [
-            reverse('courses:courses_api:course_detail', kwargs = {'unique_id': Course.objects.first().unique_id}),
+            reverse(
+                'courses:courses_api:course_detail',
+                kwargs={'unique_id': Course.objects.first().unique_id}
+            ),
         ]
 
     def test_detail_method_endpoint_course(self):
         """
-        Create a request to every endpoint in retrieve_method_endpoints. Ensure returns a 200
+        Create a request to every endpoint in retrieve_method_endpoints. Ensure
+        returns a 200
         response status code
         """
         c = Client()

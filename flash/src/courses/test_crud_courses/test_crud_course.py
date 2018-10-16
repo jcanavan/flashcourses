@@ -18,23 +18,48 @@ import uuid
 
 
 class CRUDCourseTest(TestCase):
-    institution = None;
-    course = None;
+    institution = None
+    course = None
     deck = None
-    card = None;
-    user = None;
+    card = None
+    user = None
 
     def setUp(self):
         """
-        setUp needed to perform the tests, it is called before every test function.
+        setUp needed to perform the tests, it is called before every test
+        function.
         """
-        self.institution = Institution.objects.create(institution_name='test_name', location='test_location')
-        self.institution1 = Institution.objects.create(institution_name='test_name1', location='test_location1')
-        self.course = Course.objects.create(course_id= 'test_id', course_title= 'title_123', course_description= 'description')
-        self.course1 = Course.objects.create(course_id= 'test_id1', course_title = 'title_12', course_description= 'description1')
-        self.deck = Deck.objects.create(title='deck1', deck_description= 'desc')
-        self.card = Card.objects.create(front='card1', back='card2')
-        self.user = User.objects.create(first_name = 'first_name', last_name = 'last_name', password='password')
+        self.institution = Institution.objects.create(
+            institution_name='test_name',
+            location='test_location'
+        )
+        self.institution1 = Institution.objects.create(
+            institution_name='test_name1',
+            location='test_location1'
+        )
+        self.course = Course.objects.create(
+            course_id='test_id',
+            course_title='title_123',
+            course_description='description'
+        )
+        self.course1 = Course.objects.create(
+            course_id='test_id1',
+            course_title='title_12',
+            course_description='description1'
+        )
+        self.deck = Deck.objects.create(
+            title='deck1',
+            deck_description='desc'
+        )
+        self.card = Card.objects.create(
+            front='card1',
+            back='card2'
+        )
+        self.user = User.objects.create(
+            first_name='first_name',
+            last_name='last_name',
+            password='password'
+        )
 
     def test_Course_create(self):
         """
@@ -59,7 +84,8 @@ class CRUDCourseTest(TestCase):
         Testing object update operaions for Course model.
         """
 
-        b = Course.objects.filter(course_title= 'title_123').update(course_id='test_id2')
+        b = Course.objects.filter(
+            course_title='title_123').update(course_id='test_id2')
         self.assertEqual(b, 1)
         self.course = Course.objects.get(id=self.course.id)
         self.assertEqual(self.course.course_id, 'test_id2')
@@ -68,5 +94,5 @@ class CRUDCourseTest(TestCase):
         """
         Testing object delete operations for Course model
         """
-        Course.objects.filter(course_title = 'title_123').delete()
-        self.assertEqual(Course.objects.count(),1)
+        Course.objects.filter(course_title='title_123').delete()
+        self.assertEqual(Course.objects.count(), 1)

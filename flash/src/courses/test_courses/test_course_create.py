@@ -17,6 +17,7 @@ from accounts.models import User
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+
 class APIStatusCodeCourseCreate(APITestCase):
 
     """
@@ -28,20 +29,22 @@ class APIStatusCodeCourseCreate(APITestCase):
         Sets up testing environment. Add post endpoint to be tested
         """
 
-        self.post_method_endpoint_course =[
+        self.post_method_endpoint_course = [
             reverse('courses:courses_api:course_create')
         ]
 
     def test_course_endpoint_post_method_with_valid_data(self):
         """
-        Create a request to endpoint in post_method_endpoints. Ensure returns a 201
+        Create a request to endpoint in post_method_endpoints. Ensure returns a
+        201
         response status code
         """
 
         c = Client()
 
         """
-        All the three fields in valid_data are mandatory fields for creating data
+        All the three fields in valid_data are mandatory fields for creating
+        data
         """
 
         valid_data = {
@@ -56,15 +59,16 @@ class APIStatusCodeCourseCreate(APITestCase):
 
     def test_course_endpoint_post_method_with_invalid_data(self):
         """
-        Create a request to course create endpoint in post_method_endpoints. Ensure returns a 400 for invalid data
+        Create a request to course create endpoint in post_method_endpoints.
+        Ensure returns a 400 for invalid data
         response status code
         """
 
         c = Client()
         invalid_data = {
-             "course_title": "",
-             "course_id": "3",
-             "course_description": "this is a test data"
+            "course_title": "",
+            "course_id": "3",
+            "course_description": "this is a test data"
 
         }
 

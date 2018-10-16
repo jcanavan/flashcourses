@@ -3,7 +3,8 @@ Pritha Dutta
 04.23.2018
 Testing CRUD operations for models
 
-Relative File Path:  /flash/src/courses/test_crud_courses/test_crud_institution.py
+Relative File Path:
+/flash/src/courses/test_crud_courses/test_crud_institution.py
 """
 
 from django.test import TestCase
@@ -18,24 +19,48 @@ import uuid
 
 
 class CRUDInstitutionTest(TestCase):
-    institution = None;
-    course = None;
+    institution = None
+    course = None
     deck = None
-    card = None;
-    user = None;
+    card = None
+    user = None
 
     def setUp(self):
         """
-        setUp needed to perform the tests, it is called before every test function.
+        setUp needed to perform the tests, it is called before every test
+        function.
         """
-        self.institution = Institution.objects.create(institution_name='test_name', location='test_location')
-        self.institution1 = Institution.objects.create(institution_name='test_name1', location='test_location1')
-        self.course = Course.objects.create(course_id= 'test_id', course_title= 'title_123', course_description= 'description')
-        self.course1 = Course.objects.create(course_id= 'test_id1', course_title = 'title_12', course_description= 'description1')
-        self.deck = Deck.objects.create(title='deck1', deck_description= 'desc')
-        self.card = Card.objects.create(front='card1', back='card2')
-        self.user = User.objects.create(first_name = 'first_name', last_name = 'last_name', password='password')
-
+        self.institution = Institution.objects.create(
+            institution_name='test_name',
+            location='test_location'
+        )
+        self.institution1 = Institution.objects.create(
+            institution_name='test_name1',
+            location='test_location1'
+        )
+        self.course = Course.objects.create(
+            course_id='test_id',
+            course_title='title_123',
+            course_description='description'
+        )
+        self.course1 = Course.objects.create(
+            course_id='test_id1',
+            course_title='title_12',
+            course_description='description1'
+        )
+        self.deck = Deck.objects.create(
+            title='deck1',
+            deck_description='desc'
+        )
+        self.card = Card.objects.create(
+            front='card1',
+            back='card2'
+        )
+        self.user = User.objects.create(
+            first_name='first_name',
+            last_name='last_name',
+            password='password'
+        )
 
     def test_Institution_create(self):
         """
@@ -45,7 +70,6 @@ class CRUDInstitutionTest(TestCase):
         self.assertIsInstance(self.institution1, Institution)
 
     def test_Institution_retrieve(self):
-
         """
         Testing object retrieve operaions for Institution model.
         """
@@ -56,7 +80,8 @@ class CRUDInstitutionTest(TestCase):
         """
         Testing object update operaions for Institution model.
         """
-        c= Institution.objects.filter(institution_name='test_name1').update(location='test_loc')
+        c = Institution.objects.filter(
+            institution_name='test_name1').update(location='test_loc')
         self.assertEqual(c, 1)
         self.institution1 = Institution.objects.get(id=self.institution1.id)
         self.assertEqual(self.institution1.location, 'test_loc')
@@ -66,4 +91,4 @@ class CRUDInstitutionTest(TestCase):
         Testing object delete operaions for Institution model.
         """
         Institution.objects.filter(institution_name='test_name').delete()
-        self.assertEqual(Institution.objects.count(),1)
+        self.assertEqual(Institution.objects.count(), 1)

@@ -17,6 +17,7 @@ from accounts.models import User
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+
 class APIputStatusCodeTestsInstitution(APITestCase):
 
     """
@@ -28,10 +29,15 @@ class APIputStatusCodeTestsInstitution(APITestCase):
         Sets up testing environment.
         """
 
-        user = User.objects.create_user('Swechchha', 'swechchha@gmail.com', 'imppwdswe')
+        user = User.objects.create_user(
+            'Swechchha', 'swechchha@gmail.com', 'imppwdswe'
+        )
 
-        inst = Institution.objects.create(ipeds = '123654' , institution_name = 'UNH', location = 'Manchester' )
-
+        inst = Institution.objects.create(
+            ipeds='123654',
+            institution_name='UNH',
+            location='Manchester'
+        )
 
     def test_inst_endpoint_put_method(self):
         """
@@ -49,7 +55,10 @@ class APIputStatusCodeTestsInstitution(APITestCase):
         }
 
         self.assertEqual(inst.location, 'Manchester')
-        response = self.client.put(reverse('courses:courses_api:institution_update', kwargs = {'unique_id': inst.unique_id}), data)
+        response = self.client.put(reverse(
+            'courses:courses_api:institution_update',
+            kwargs={'unique_id': inst.unique_id}), data
+        )
         inst = Institution.objects.first()
         self.assertEqual(inst.location, 'Concord, NH')
         self.assertEqual(response.status_code, 200)
